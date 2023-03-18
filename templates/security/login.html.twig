@@ -17,7 +17,9 @@
                     <label for="inputPassword">Password</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" required>
                 </div>
-
+                {% if error %}
+                <span class="alert alert-danger">{{ error.messageKey }}</span>
+                {% endif %}
                 <div class="col-12">
                     <button class="btn btn-lg btn-primary float-end" type="submit">
                         Sign in
