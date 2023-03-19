@@ -6,11 +6,13 @@ use App\Entity\Answer;
 use App\Repository\AnswerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AnswerController extends AbstractController
+
+class AnswerController extends BaseController
 {
     /**
      * @Route("/answers/popular", name="app_popular_answers")
@@ -29,8 +31,15 @@ class AnswerController extends AbstractController
     /**
      * @Route("/answers/{id}/vote", methods="POST", name="answer_vote")
      */
+    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
     public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager)
     {
+
+        $logger->info("{user} voted on answer {answer}", [
+            'user' => $this->getUser()->get,
+            'answer' => $answer->getId(),
+        ]);
+
         $data = json_decode($request->getContent(), true);
         $direction = $data['direction'] ?? 'up';
 
