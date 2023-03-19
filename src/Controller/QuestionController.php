@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 use Psr\Log\LoggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,10 +45,20 @@ class QuestionController extends AbstractController
     }
 
     /**
-     * @Route("/questions/new")
+     * @Route("/questions/new", name="app_question_new")
      */
+    #[IsGranted('ROLE_USER')]
     public function new()
     {
+        // // three methods of granting access: two below and with attributes/annotations  
+        //
+        // $this->denyAccessUnlessGranted('ROLE_USER');
+
+        // 
+        // if (!$this->isGranted('USER_USER')) {
+        //     throw $this->createAccessDeniedException();
+        // }
+            
         return new Response('Sounds like a GREAT feature for V2!');
     }
 
