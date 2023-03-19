@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
@@ -53,5 +55,12 @@ class AdminController extends AbstractController
             'chart' => $chart,
             'chart2' => $chart2,
         ]);
+    }
+
+    #[Route('/admin/login', name:"admin_login")]
+    #[IsGranted('PUBLIC_ACCESS')]
+    public function login(Request $request): Response
+    {
+        return new Response('admin login');
     }
 }
