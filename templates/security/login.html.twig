@@ -17,6 +17,12 @@
                     <label for="inputPassword">Password</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" required>
                 </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="col-4">
+                    <label>
+                        <input type="checkbox" name="_remember_me" class="form-check-input"> Remember me
+                    </label>
+                </div>
                 {% if error %}
                 <span class="alert alert-danger">{{ error.messageKey|trans(error.messageData,'security') }}</span>
                 {% endif %}
