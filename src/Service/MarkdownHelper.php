@@ -26,7 +26,7 @@ class MarkdownHelper
 
     public function parse(string $source): string
     {
-        $name = $this->security->getUser()->getFistName;
+        //$name = $this->security->getUser()->getFirstName();
 
         if (stripos($source, 'cat') !== false) {
             $this->logger->info('Meow!');
