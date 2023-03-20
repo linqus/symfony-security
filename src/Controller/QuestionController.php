@@ -82,12 +82,9 @@ class QuestionController extends AbstractController
      */
     public function edit(Question $question)
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
-        if ($question->getAskedAt() !== $this->getUser()) {
-            throw new AccessDeniedException('You are not an owner!');
-        }
-
+        $this->denyAccessUnlessGranted('EDIT', $question);
+        
         return $this->render('question/edit.html.twig', [
             'question' => $question,
         ]);
