@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class QuestionController extends AbstractController
 {
@@ -75,6 +76,23 @@ class QuestionController extends AbstractController
             'question' => $question,
         ]);
     }
+    
+    /**
+     * @Route("/questions/edit/{slug}", name="app_question_edit")
+     */
+    public function edit(Question $question)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        if ($question->getAskedAt() !== $this->getUser()) {
+            throw new AccessDeniedException('You are not an owner!');
+        }
+
+        return $this->render('question/edit.html.twig', [
+            'question' => $question,
+        ]);
+    }
+
 
     /**
      * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
