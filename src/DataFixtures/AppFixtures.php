@@ -27,7 +27,7 @@ class AppFixtures extends Fixture
             'email' => 'user@example.com',
         ]);
 
-        // UserFactory::createMany(10);
+        UserFactory::createMany(5);
 
 
         TagFactory::createMany(100);

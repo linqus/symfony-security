@@ -62,6 +62,12 @@ class Question
      */
     private $questionTags;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="questions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $askedBy;
+
     public function __construct()
     {
         $this->answers = new ArrayCollection();
@@ -215,6 +221,18 @@ class Question
                 $questionTag->setQuestion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAskedBy(): ?User
+    {
+        return $this->askedBy;
+    }
+
+    public function setAskedBy(?User $askedBy): self
+    {
+        $this->askedBy = $askedBy;
 
         return $this;
     }
