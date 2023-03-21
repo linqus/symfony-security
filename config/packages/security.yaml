@@ -38,6 +38,8 @@ security:
             
             entry_point: form_login
 
+            login_throttling: true
+            
             switch_user: true
             
             logout: true
