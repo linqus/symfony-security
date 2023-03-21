@@ -50,6 +50,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $questions;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -206,6 +211,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $question->setAskedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

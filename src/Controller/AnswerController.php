@@ -36,7 +36,7 @@ class AnswerController extends BaseController
     {
 
         $logger->info("{user} voted on answer {answer}", [
-            'user' => $this->getUser()->get,
+            'user' => $this->getUser()->getFirstName(),
             'answer' => $answer->getId(),
         ]);
 
