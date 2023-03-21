@@ -13,8 +13,6 @@ class UserController extends BaseController
     #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
     public function apiMe(): Response
     {
-        return $this->json($this->getUser(), 200, [], [
-            'group' => ['user:read']
-        ]);
+        return $this->json($this->getUser());
     }
 }
