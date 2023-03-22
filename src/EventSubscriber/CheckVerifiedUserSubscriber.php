@@ -31,11 +31,11 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
             throw new Exception('unexpected user type');
         }
 
-        // if (!$user->getIsVerified()) {
-        //     throw new CustomUserMessageAuthenticationException('Adres email niezweryfikowany');
-        // }
+        if (!$user->getIsVerified()) {
+            throw new AccountNotVerifiedAuthenticationException();
+        }
 
-        throw new AccountNotVerifiedAuthenticationException();
+    
     }
 
     public function onLoginFailure(LoginFailureEvent $event)
